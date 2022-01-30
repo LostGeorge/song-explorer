@@ -6,6 +6,15 @@
     filter: brightness(50%);
     z-index: -1;
   }
+
+  .hero-vid {
+    object-fit: cover;
+    width: 140%;
+    height: 140%;
+    position: fixed;
+    filter: brightness(50%);
+    z-index: -1;
+  }
   
   .hero-container {
     /* background: url('/images/img-home.jpg') center center/cover no-repeat; */

@@ -39,7 +39,8 @@ export const LoginButton = ({
       console.log('here')
       const response = await axios.get('http://localhost:5000/get-auth-url')
       console.log(response)
-      window.location.replace(response.data.url);
+      //window.location.replace(response.data.url);
+      navigate('/skyrim')
     } catch (error) {
       console.log(error);
       navigate('/')
