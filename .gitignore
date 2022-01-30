@@ -3,4 +3,5 @@ __pycache__
 backend/auth.py
 .cache
 *.npy
+tester.py
 *.json
