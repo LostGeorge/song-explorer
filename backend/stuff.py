@@ -1,16 +1,20 @@
 import spotipy
 import numpy as np
-import json, sys
+import json, sys, random
 sys.path.append('..')
 from backend.api import get_sp_client
 from backend.anchors import ratio_to_distance, find_shell_point_ids, FEATURE_IDX_MAP
 
-def get_input_features(track_lst, sp):
+def get_input_features(track_lst, sp, n_samp=10):
+    n = len(track_lst)
+    samples_idxs = set(random.sample(range(n), min(n_samp, n)))
+    track_lst = [track for i, track in enumerate(track_lst) if i in samples_idxs and track is not None]
     feat_dicts = sp.audio_features(tracks=track_lst)
     input_feats = np.zeros((len(track_lst), len(FEATURE_IDX_MAP)))
     for i in range(len(track_lst)):
         for feat, idx in FEATURE_IDX_MAP.items():
             input_feats[i, idx] = feat_dicts[i][feat]
+    input_feats[:, -1] /= 250
     return input_feats
 
 def get_rec_song_list(username, playlist_name, anchor_fp, ratio):
@@ -30,7 +34,7 @@ def get_rec_song_list(username, playlist_name, anchor_fp, ratio):
 
     input_features = get_input_features(track_id_lst, sp)
     anchor_features = np.load(f'{anchor_fp}.npy')
-    anchor_ids = json.load(f'{anchor_fp}.json')
+    anchor_ids = json.load(open(f'{anchor_fp}.json'))
     rec_ids = find_shell_point_ids(input_features, anchor_features,
         anchor_ids, shell_dist=ratio_to_distance(ratio))
     
@@ -47,6 +51,7 @@ def get_rec_song_list(username, playlist_name, anchor_fp, ratio):
 
 if __name__ == '__main__':
     rec_songs = get_rec_song_list('lost_herro', 'Potpurri', 'test', 0.2)
-    print(rec_songs)
+    for song_dict in rec_songs:
+        print(song_dict)
 
 
