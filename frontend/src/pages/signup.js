@@ -1,4 +1,5 @@
 import React from 'react';
+import Login from "../components/Login/Login";
 
 const SignUp = () => {
   return (
@@ -10,7 +11,7 @@ const SignUp = () => {
         height: '90vh'
       }}
     >
-      <h1>Sign Up</h1>
+      <Login />
     </div>
   );
 };
