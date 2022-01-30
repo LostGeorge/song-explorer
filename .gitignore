@@ -4,4 +4,3 @@ backend/auth.py
 .cache
 *.npy
 tester.py
-frontend/

@@ -1,28 +1,26 @@
 import React from 'react';
 import '../../App.css';
 import { Button } from '../Button/Button';
-import './HeroSection.css';
-import heroImg from '../../images/studio.jpg'
+import './LoginHeroSection.css';
+import loginImg from '../../images/login.jpg'
 
-function HeroSection() {
+function LoginHeroSection() {
   return (
     <div className='hero-container'>
       {/* <video src='/videos/video-1.mp4' autoPlay loop muted /> */}
-      <img src={heroImg} className='hero-img'/>
-      <h1>EAR BLEEDR</h1>
-      <p>Find Your Spotify Recs Today</p>
+      <img src={loginImg} className='login-hero-img'/>
       <div className='hero-btns'>
         <Button
           className='btns'
           buttonStyle='btn--outline'
           buttonSize='btn--large'
-          redirect='/sign-up'
+          redirect='http://localhost:5000/get-auth-url'
         >
-          GET STARTED
+          Login
         </Button>
       </div>
     </div>
   );
 }
 
-export default HeroSection;
+export default LoginHeroSection;

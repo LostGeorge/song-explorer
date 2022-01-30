@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from "../components/Login/Login";
+import LoginHeroSection from '../components/LoginHero/LoginHeroSection';
 
 const SignUp = () => {
   return (
@@ -11,7 +11,7 @@ const SignUp = () => {
         height: '90vh'
       }}
     >
-      <Login />
+      <LoginHeroSection />
     </div>
   );
 };
