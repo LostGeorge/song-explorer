@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, request
+from flask import Flask, send_from_directory, request, redirect
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS #comment this on deployment
 from backend.TemplateHandler import TemplateHandler
@@ -51,6 +51,11 @@ def spotify_callback():
     expires_in = response.get('expires_in')
     err = response.get('error')
     print(access_token, token_type, refresh_token, expires_in, err)
-    return {}
+    response = app.response_class(
+        response=json.dumps({'access_token': access_token}), 
+        status=200, 
+        mimetype='application/json'
+    )
+    return redirect("http://localhost:3000")
 
 api.add_resource(TemplateHandler, '/flask/hello')
