@@ -29,13 +29,28 @@ def auth():
         status=200, 
         mimetype='application/json'
     )
-    print(url)
+    #print(url)
     return response
 
 @app.route("/spotify-callback", methods=['GET'])
 def spotify_callback(): 
     args = request.args
-    print("HELLO")
+    code = args['code']
+
+    response = post('https://accounts.spotify.com/api/token', data={
+        'grant_type': 'authorization_code', 
+        'code': code,
+        'redirect_uri': SPOTIPY_REDIRECT_URI,
+        'client_id': SPOTIPY_CLIENT_ID, 
+        'client_secret': SPOTIPY_CLIENT_SECRET
+    }).json()
+
+    access_token = response.get('access_token')
+    token_type = response.get('token_type')
+    refresh_token = response.get('refresh_token')
+    expires_in = response.get('expires_in')
+    err = response.get('error')
+    print(access_token, token_type, refresh_token, expires_in, err)
     return {}
 
 api.add_resource(TemplateHandler, '/flask/hello')
